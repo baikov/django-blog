@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block seo_title %}{{post.seo_title}}{% endblock seo_title %}
+{% block seo_description %}{{post.seo_description}}{% endblock seo_description %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<hr>
+<div>{{post.updated_date|date:"d.m.Y"}} by {{author}}</div>
+<hr>
+<div>
+    {{post.body}}
+</div>
+<a href="{% url 'blog:list' %}">Back</a>
+{% endblock content %}
+
+{% block aside %}
+<div class="col-md-3 m-auto">
+Post Table
+</div>
+{% endblock aside %}

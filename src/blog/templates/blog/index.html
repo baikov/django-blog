@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+Main page for my site
+{% endblock title %}
+
+{% block content %}
+    <div>it's homepage</div>
+    {% for post in post_list %}
+    <div>
+        <a href="{% url 'blog:detail' post.slug %}">
+            {{post.title}}
+        </a>
+        <p>
+            {{post.short_text}}
+        </p>
+    </div>
+    {% endfor %}
+{% endblock content %}
