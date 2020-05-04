@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView
 
 from .models import Post
 
+
 class ListView(ListView):
     template_name = 'blog/blog-list.html'
     context_object_name = 'latest_post_list'
@@ -12,6 +13,7 @@ class ListView(ListView):
     def get_queryset(self):
         """Return the last five published posts."""
         return Post.objects.order_by('-updated_date')[:5]
+
 
 class DetailView(DetailView):
     model = Post
@@ -27,6 +29,7 @@ def index(request):
     homepage_post_list = Post.objects.order_by('-updated_date')[:5]
     context = {'post_list': homepage_post_list}
     return render(request, 'blog/index.html', context)
+
 
 '''
 def blog_list(request):
