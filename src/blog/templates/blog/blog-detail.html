@@ -6,12 +6,17 @@
 {% block content %}
 <h1>{{ post.title }}</h1>
 <hr>
+{% if post.image %}
+<img src="{{post.image.url}}" alt="{{post.title}}">
+<hr>
+{% endif %}
+
 <div>{{post.updated_date|date:"d.m.Y"}} by {{author}}</div>
 <hr>
 <div>
     {{post.body}}
 </div>
-<a href="{% url 'blog:list' %}">Back</a>
+<a href="{% url 'blog:list' %}" class="back_link">Back</a>
 {% endblock content %}
 
 {% block aside %}
