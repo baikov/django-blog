@@ -12,7 +12,7 @@ cyr_to_lat = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e',
 
 def custom_slugify(model, string):
     result = string.lower()
-    for char in set(string):
+    for char in set(result):
         if char not in set(cyr_to_lat.keys()) | ignor_chars:
             result = result.replace(char, ' ')
         elif char in cyr_to_lat.keys():
