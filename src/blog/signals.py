@@ -7,4 +7,5 @@ from .models import Post
 
 @receiver(pre_save, sender=Post)
 def pre_save_slugify(sender, instance, **kwargs):
-    instance.slug = custom_slugify(sender, instance.title)
+    if not instance.slug:
+        instance.slug = custom_slugify(sender, instance.title)
