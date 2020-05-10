@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 {% block seo_title %}Post List{% endblock seo_title %}
 {% block content %}
-    {% if latest_post_list %}
+    {% if posts %}
         <div>
-            {% for post in latest_post_list %}
+            {% for post in posts %}
 
-            <div class="card mb-3">
+            <div class="card mb-3{% if post.is_highlighted %} featured{%endif%}">
                 {# <img src="" class="card-img-top"> #}
                 <div class="card-body">
                     <h5 class="card-title">{{ post.title }}</h5>
                     <p class="card-text">{{ post.short_text }}</p>
-                        <a href="{% url 'blog:detail' post.slug %}" class="card-link">Read more...</a>
-                        <a href="{{post.get_absolute_url}}" class="card-link">Read more...</a>
+                    <a href="{% url 'blog:detail' post.slug %}" class="card-link">Read more...</a>
+                    <a href="{{post.get_absolute_url}}" class="card-link">Read more...</a>
+                    {% if not post.is_published %}Draft{%endif%}
                 </div>
                 <div class="card-footer text-muted">{{ post.updated_date|date:"d.m.Y" }}</div>
             </div>
