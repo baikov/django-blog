@@ -2,6 +2,13 @@ from django.db import models
 from django.urls import reverse
 
 
+class PostQuerySet(models.QuerySet):
+    def published(self):
+        return self.filter(is_published=True)
+
+    def featured(self):
+        return self.filter(is_highlighted=True)
+
 class Post(models.Model):
     title = models.CharField(max_length=200)
     short_text = models.TextField(
@@ -11,8 +18,12 @@ class Post(models.Model):
     seo_description = models.CharField(max_length=250, blank=True)
     slug = models.SlugField(blank=True)
     body = models.TextField()
+    is_published = models.BooleanField(verbose_name='Published', default=False, null=False)
+    is_highlighted = models.BooleanField(verbose_name='Featured', default=False)
     created_date = models.DateField(auto_now_add=True)
     updated_date = models.DateField(auto_now=True)
+
+    objects = PostQuerySet.as_manager()
 
     def __str__(self):
         return self.title
