@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% block canonical %}{{post.get_absolute_url}}{% endblock canonical %}
 {% block seo_title %}
 {% if post.seo_title %}
 {{post.seo_title}}
@@ -24,16 +24,37 @@
 <hr>
 {% endif %}
 
-<div>{{post.updated_date|date:"d.m.Y"}} by {{author}}</div>
+<div>
+{{ post.created_date|date:"d.m.Y" }} (update {{ post.updated_date|date:"d.m.Y" }}) by {{author}}
+</div>
 <hr>
 <div>
-    {{post.body}}
+    {{post.body|safe}}
+</div>
+<div>
+{% for image in images %}
+<img src="{{image.image.url}}" alt="{{image.img_alt}}" title="{{image.img_title}}" class="post-image">
+{% endfor %}
 </div>
 <a href="{% url 'blog:list' %}" class="back_link">Back</a>
 {% endblock content %}
 
 {% block aside %}
 <div class="col-md-3 m-auto">
-Post Table
+{% if request.user.is_superuser %}
+<a href="{% url 'blog:edit' post.slug %}">Edit</a>
+{% else %}
+You must login
+{% endif %}
+<hr>
+{% if post.is_toc %}
+    <ul class="post-toc">
+    {% for toc_item in toc %}
+        <li class="post-toc__item">
+            <a class="toc-{{toc_item.class}}" href="#{{toc_item.id}}">{{toc_item.value}}</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
 </div>
 {% endblock aside %}

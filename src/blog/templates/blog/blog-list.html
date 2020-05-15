@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block canonical %}{% url 'blog:list' %}{% endblock canonical %}
 {% block seo_title %}Post List{% endblock seo_title %}
 {% block content %}
     {% if posts %}
@@ -8,13 +9,16 @@
             <div class="card mb-3{% if post.is_highlighted %} featured{%endif%}">
                 {# <img src="" class="card-img-top"> #}
                 <div class="card-body">
-                    <h5 class="card-title">{{ post.title }}</h5>
+                    <a href="{{post.get_absolute_url}}">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                    </a>
                     <p class="card-text">{{ post.short_text }}</p>
-                    <a href="{% url 'blog:detail' post.slug %}" class="card-link">Read more...</a>
-                    <a href="{{post.get_absolute_url}}" class="card-link">Read more...</a>
                     {% if not post.is_published %}Draft{%endif%}
                 </div>
-                <div class="card-footer text-muted">{{ post.updated_date|date:"d.m.Y" }}</div>
+                <div class="card-footer text-muted">
+                    {{ post.created_date|date:"d.m.Y" }}
+                    (update {{ post.updated_date|date:"d.m.Y" }})
+                </div>
             </div>
 
             {% endfor %}
@@ -22,6 +26,23 @@
     {% else %}
         <p>No posts here!</p>
     {% endif %}
+    <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 {% endblock %}
 
 {% block aside %}

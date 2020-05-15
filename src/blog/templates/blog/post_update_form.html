@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+{% if request.user.is_superuser %}
+<form method="post">{% csrf_token %}
+    {# {{ form.as_p }} #}
+ {{ form.media }}
+{% for field in form %}
+	<div class="f_row">
+		{{ field.errors }}
+		{{ field.label_tag }}
+		<div class="f_input">
+			{{ field }}
+			{% if field.help_text %}<div class="note">{{ field.help_text }}</div>{% endif %}
+		</div>
+	</div>
+{% endfor %}
+    <input type="submit" value="Update">
+</form>
+{% else %}
+Permission denied!
+{% endif %}
+{% endblock content %}
