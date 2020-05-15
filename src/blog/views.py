@@ -20,10 +20,9 @@ class PostListView(ListView):
             posts = posts.published()
         return posts.order_by('-is_highlighted', '-created_date')[:limit]
 
-    def get_context_data(self,**kwargs):
+    def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
         featured_posts = Post.objects.featured()
-
 
         if self.request.user.is_superuser:
             context['featured'] = featured_posts
@@ -39,11 +38,11 @@ class PostListView(ListView):
         # if not self.request.user.is_superuser:
         #     posts = posts.published()
         #     posts_featured = posts_featured.published()
-            
+
         # context['last_posts'] = posts[:limit]
         # context['last_posts_featured'] = posts_featured[:limit]
         # return context
-        #return Post.objects.order_by('-updated_date')[:5]
+        # return Post.objects.order_by('-updated_date')[:5]
 
 
 class PostDetailView(DetailView):
@@ -59,10 +58,13 @@ class PostDetailView(DetailView):
         context['images'] = self.object.images.all()
         return context
 
+
 class PostEditView(UpdateView):
     model = Post
-    fields = ['title','slug', 'is_published', 'is_highlighted', 'is_toc', 'toc_depth', 'short_text', 'body', 'seo_title', 'seo_description']
+    fields = ['title', 'slug', 'is_published', 'is_highlighted', 'is_toc',
+              'toc_depth', 'short_text', 'body', 'seo_title', 'seo_description']
     template_name_suffix = '_update_form'
+
 
 def index(request):
     homepage_post_list = Post.objects.order_by('-updated_date')[:5]

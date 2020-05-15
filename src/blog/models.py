@@ -12,6 +12,7 @@ class PostQuerySet(models.QuerySet):
     def featured(self):
         return self.filter(is_highlighted=True)
 
+
 class Post(models.Model):
     title = models.CharField(max_length=200)
     short_text = models.TextField(
@@ -35,6 +36,7 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('blog:detail', kwargs={'slug': self.slug})
+
 
 def get_image_filename(instance, filename):
     # ext = filename.split('.')[-1]

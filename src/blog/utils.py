@@ -11,6 +11,7 @@ cyr_to_lat = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e',
               'э': 'e', 'ю': 'yu', 'я': 'ya'
               }
 
+
 def to_lat(string):
     result = string.lower()
     for char in set(result):
@@ -23,6 +24,7 @@ def to_lat(string):
 
     return result
 
+
 def custom_slugify(model, string):
     result = to_lat(string)
     slug_text = result
@@ -32,6 +34,7 @@ def custom_slugify(model, string):
         count += 1
 
     return result
+
 
 def add_toc_links(post_body):
     '''
@@ -48,15 +51,21 @@ def add_toc_links(post_body):
 
     return post_body
 
+
 def get_toc(post_body, depth):
     toc = []
     # regex = r"<h(\d).*?>(.*?)<\/h\d.*?>"
     regex = r"<h(?P<level>\d).*?id=\"(?P<id>.*?)\".*?>(?P<value>.*?)<\/h\d.*?>"
     matches = re.finditer(regex, post_body, re.IGNORECASE)
-    id = 1
-    
+
     for match in matches:
         if int(match.group('level')) <= depth:
-            toc.append({'id': str(match.group('id')),'class': str(match.group('level')), 'value': match.group('value')})
-            id += 1
+            toc.append(
+                {
+                    'id': str(match.group('id')),
+                    'class': str(match.group('level')),
+                    'value': match.group('value')
+                }
+            )
+
     return toc

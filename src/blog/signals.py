@@ -10,6 +10,7 @@ def pre_save_slugify(sender, instance, **kwargs):
     if not instance.slug:
         instance.slug = custom_slugify(sender, instance.title)
 
+
 @receiver(pre_save, sender=Post)
 def pre_save_toc(sender, instance, **kwargs):
     if instance.is_toc:
