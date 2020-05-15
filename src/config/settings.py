@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'blog.apps.BlogConfig',
+
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +130,45 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+# from ckeditor.configs import DEFAULT_CONFIG
+
+CUSTOM_TOOLBAR = [
+    {
+        "name": "document",
+        "items": [
+            "Source", "Styles", "Format", "Bold", "Italic", "Underline", "Strike", "-",
+            "TextColor", "BGColor",  "-",
+            "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock",
+        ],
+    },
+    {
+        "name": "widgets",
+        "items": [
+            "Undo", "Redo", "-",
+            "NumberedList", "BulletedList", "-",
+            "Outdent", "Indent", "-",
+            "Link", "Unlink", "-",
+            "Image", "CodeSnippet", "Table", "HorizontalRule", "Smiley", "SpecialChar", "-",
+            "Blockquote", "-",
+            "ShowBlocks", "Maximize",
+        ],
+    },
+]
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': CUSTOM_TOOLBAR,
+        "skin": "moono-lisa",
+        "toolbarGroups": None,
+        "extraPlugins": ",".join(["image2", "codesnippet"]),
+        "removePlugins": ",".join(["image"]),
+        "codeSnippet_theme": "xcode",
+        
+    }
+}
