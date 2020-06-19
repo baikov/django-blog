@@ -1,0 +1,35 @@
+.back_link{
+    color: #000000;
+    font-size: 12px;
+    line-height: 16px;
+    text-decoration: none;
+}
+.back_link:hover {
+    color: #000000;
+    text-decoration: dotted;
+}
+.featured {
+    border: 1px solid #f1cf0e;
+}
+.post-image {
+    width: 200px;
+}
+.post-toc{
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+.post-toc__item {
+
+}
+.post-toc__item .toc-2 {
+    padding-left: 0px;
+}
+.post-toc__item .toc-3 {
+    padding-left: 20px;
+    font-size: 0.8em;
+}
+.post-toc__item .toc-4 {
+    padding-left: 30px;
+    font-size: 0.7em;
+}

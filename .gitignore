@@ -10,6 +10,5 @@ uploads
 media
 .vscode
 .DS_Store
-static
 
 blogenv
